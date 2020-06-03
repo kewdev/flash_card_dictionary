@@ -1,0 +1,4 @@
+/.idea/
+/Dictionary/__pycache__/
+/dictionary_site/__pycache__/
+db.sqlite3
