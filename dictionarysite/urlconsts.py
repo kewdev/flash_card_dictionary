@@ -1,0 +1,21 @@
+INDEX_PAGE_URL = "index_page_url"
+SEARCH_WORD_URL = "search_word_url"
+
+LIST_WORD_URL = "list_word_url"
+LIST_WORD_ON_LANGUAGE_URL = "list_word_on_language_url"
+DETAIL_WORD_URL = "detail_word_url"
+CREATE_WORD_URL = "create_word_url"
+UPDATE_WORD_URL = "update_word_url"
+DELETE_WORD_URL = "delete_word_url"
+
+LIST_GROUP_URL = "list_group_url"
+DETAIL_GROUP_URL = "detail_group_url"
+CREATE_GROUP_URL = "create_group_url"
+UPDATE_GROUP_URL = "update_group_url"
+DELETE_GROUP_URL = "delete_group_url"
+
+LIST_LANGUAGE_URL = "list_language_url"
+DETAIL_LANGUAGE_URL = "detail_language_url"
+CREATE_LANGUAGE_URL = "create_language_url"
+UPDATE_LANGUAGE_URL = "update_language_url"
+DELETE_LANGUAGE_URL = "delete_language_url"
