@@ -3,3 +3,6 @@
 /dictionarysite/__pycache__/
 db.sqlite3
 /TO-DO List
+/functional_tests/geckodriver.log
+/geckodriver.log
+*.pyc
