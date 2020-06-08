@@ -1,0 +1,12 @@
+{% extends "dictionarysite/base.html" %}
+
+{% block title %}
+    {{ group.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="h1 text-center">{{ group.name }}</div>
+    {% for word in group.word_set.all  %}
+        <div class="">{{ word }}</div>
+    {% endfor %}
+{% endblock %}

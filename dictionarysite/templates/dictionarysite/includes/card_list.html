@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="container">
+        <div class="row text-container">
+            {% for object in object_list %}
+            <div class="col-xs-12 col-sm-6 col-lg-4 justify-content-center">
+                {% include card_template_path with object=object detail_link=detail_link delete_link=delete_link update_link=update_link %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!--
+    input_args: card_template_path, object_list, [detail_link delete_link update_link]
+
+    : object detail_link=detail_link delete_link=delete_link update_link=update_link
+
+
+     content=content header=word.word slug=word.slug
+-->

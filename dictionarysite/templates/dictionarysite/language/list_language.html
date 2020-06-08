@@ -1,0 +1,13 @@
+{% extends "dictionarysite/base.html" %}
+
+{% block title %}
+    languages
+{% endblock %}
+
+{% block content %}
+
+    {% include 'dictionarysite/includes/addition_navbar.html' with create_link='create_language_url' %}
+
+    {% include 'dictionarysite/includes/card_list.html' with card_template_path='dictionarysite/includes/card_language.html' object_list=language_list detail_link='detail_language_url' delete_link='delete_language_url' update_link='update_language_url' %}
+
+{% endblock %}

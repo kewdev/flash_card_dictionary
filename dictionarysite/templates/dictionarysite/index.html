@@ -1,0 +1,12 @@
+{% extends "dictionarysite/base.html" %}
+
+{% block title %}
+    mane page
+{% endblock %}
+
+{% block content %}
+    {% include 'dictionarysite/includes/addition_navbar.html' with create_link='create_word_url' %}
+
+    {% include 'dictionarysite/includes/card_list.html' with card_template_path='dictionarysite/includes/card_word.html' object_list=word_list detail_link='detail_word_url' delete_link='delete_word_url' update_link='update_word_url' %}
+
+{% endblock %}

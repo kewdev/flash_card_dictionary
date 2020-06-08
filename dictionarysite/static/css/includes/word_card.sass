@@ -1,0 +1,41 @@
+.word_card
+  background-color: green
+  padding: 5px
+  display: grid
+  grid-template-columns: max-content max-content
+  align-items: center
+  grid-gap: 5px
+  &-word
+    width: max-content
+    font-size: 2em
+    grid-column-start: 1
+    grid-column-end: 3
+    background-color: blueviolet
+
+  &-priority
+    grid-column-start: 3
+    grid-column-end: -1
+    background-color: aqua
+
+  &-rank
+    width: max-content
+    grid-column-start: 1
+    grid-column-end: 3
+    background-color: aliceblue
+
+  &-date_time
+    display: none
+
+  &-translations
+    grid-column-start: 3
+    grid-column-end: -1
+    &-translation
+
+  &-groups
+    display: none
+
+    &-group
+
+  &-note
+    display: none
+

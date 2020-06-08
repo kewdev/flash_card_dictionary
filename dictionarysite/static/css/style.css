@@ -1,0 +1,9 @@
+.word_cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 300px));
+  justify-content: space-evenly;
+  align-items: center;
+  grid-gap: 5px;
+}
+
+/*# sourceMappingURL=style.css.map */
