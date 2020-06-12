@@ -8,13 +8,14 @@ from dictionarysite.forms import WordForm
 
 class ListWord(ListView):
     model = Word
-    template_name = 'dictionarysite/index.html'
+    template_name = 'dictionarysite/word/list_word.html'
+    # paginate_by = 50
 
     def get_queryset(self):
         search_word = self.request.GET.get("word")
         if not search_word:
-            return Word.objects.filter(is_not_display=False)
-        return Word.objects.filter(word__icontains=uri_to_iri(search_word))
+            return Word.objects.filter(is_not_display=False, user=self.request.user)
+        return Word.objects.filter(word__icontains=uri_to_iri(search_word), user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -36,6 +37,7 @@ class CreateWord(CreateView):
     def form_valid(self, form):
         word = form.save(commit=False)
         word.rank = 5
+        word.user = self.request.user
         word.save()
         form.save()
         return super().form_valid(form)

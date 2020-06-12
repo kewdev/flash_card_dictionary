@@ -1,15 +1,15 @@
 from django.urls import path
 
-from dictionarysite import views
-from dictionarysite.wievs.word import CreateWord, UpdateWord, DeleteWord, ListWord, DetailWord
-from dictionarysite.wievs.group import CreateGroup, UpdateGroup, DeleteGroup, ListGroup, DetailGroup
-from dictionarysite.wievs.language import CreateLanguage, UpdateLanguage, DeleteLanguage, ListLanguage, DetailLanguage
+from dictionarysite.views import views
+from dictionarysite.views.word import CreateWord, UpdateWord, DeleteWord, ListWord, DetailWord
+from dictionarysite.views.group import CreateGroup, UpdateGroup, DeleteGroup, ListGroup, DetailGroup
+from dictionarysite.views.language import CreateLanguage, UpdateLanguage, DeleteLanguage, ListLanguage, DetailLanguage
 from dictionarysite import urlconsts
 
 
 urlpatterns = [
-    path('', views.Index.as_view(), name=urlconsts.INDEX_PAGE_URL),
-    path('index/<str:word>', views.Index.as_view(), name=urlconsts.INDEX_PAGE_URL),
+    path('', views.index, name=urlconsts.INDEX_PAGE_URL),
+    path('instructions/', views.Instructions.as_view(), name=urlconsts.INSTRUCTIONS_PAGE_URL),
 
     path('word/', ListWord.as_view(), name=urlconsts.LIST_WORD_URL),
     path('word/list/<str:language>', ListWord.as_view(), name=urlconsts.LIST_WORD_ON_LANGUAGE_URL),

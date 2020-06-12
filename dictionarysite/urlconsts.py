@@ -1,4 +1,5 @@
 INDEX_PAGE_URL = "index_page_url"
+INSTRUCTIONS_PAGE_URL = "instructions_page_url"
 SEARCH_WORD_URL = "search_word_url"
 
 LIST_WORD_URL = "list_word_url"

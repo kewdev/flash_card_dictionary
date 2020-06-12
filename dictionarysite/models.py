@@ -1,5 +1,6 @@
 from time import time
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
@@ -14,7 +15,9 @@ def gen_slug(s):
 
 
 class Language(models.Model):
-    name = models.CharField("Язык", max_length=150, db_index=True, unique=True)
+    user = models.ForeignKey(User, verbose_name="Пользователь",
+                             on_delete=models.CASCADE, null=True, blank=True, db_index=True)
+    name = models.CharField("Язык", max_length=150, db_index=True)
     slug = models.SlugField(max_length=150, unique=True, blank=True)
 
     objects = models.Manager()
@@ -36,6 +39,8 @@ class Language(models.Model):
 
 
 class Group(models.Model):
+    user = models.ForeignKey(User, verbose_name="Пользователь",
+                             on_delete=models.CASCADE, null=True, blank=True, db_index=True)
     name = models.CharField("Название группы", max_length=200)
     slug = models.SlugField(max_length=150, unique=True, blank=True)
 
@@ -59,10 +64,13 @@ class Group(models.Model):
 
 class Word(models.Model):
     # TODO: прописать help_text, default
-    word = models.TextField("Слово", db_index=True, unique=True)
+    user = models.ForeignKey(User, verbose_name="Пользователь",
+                             on_delete=models.CASCADE, null=True, blank=True, db_index=True)
+    word = models.TextField("Слово", db_index=True)
     translation = models.TextField("Перевод", null=True, blank=True)
     language = models.ForeignKey(Language, verbose_name="Язык", on_delete=models.CASCADE, null=True, blank=True)
     groups = models.ManyToManyField(Group, verbose_name="Группы", null=True, blank=True)
+    # TODO использовать  Field.choices
     priority = models.PositiveSmallIntegerField("Приоритет изучения", null=True, blank=True, default=10)
     note = models.TextField("Заметки", null=True, blank=True)
     rank = models.PositiveSmallIntegerField("Популярность слова", null=True, blank=True, default=0)

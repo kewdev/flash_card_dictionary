@@ -7,7 +7,7 @@
 
     <title>
         {% block title %}
-            My dictionary
+        My dictionary
         {% endblock %}
     </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -19,65 +19,67 @@
 </head>
 <body class="bg-dark text-light">
 
-    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
-      <a class="navbar-brand" href="{% url 'index_page_url' %}">Словарь</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'index_page_url' %}">Словарь</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+    </button>
 
-      <div class="collapse navbar-collapse " id="navbarSupportedContent">
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
 
         <ul class="navbar-nav mr-auto">
 
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'list_word_url' %}">Слова</a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link {% if not user.is_authenticated %} disabled {% endif %}" href="{% url 'list_word_url' %}">Слова</a>
+            </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'list_group_url' %}">Группы</a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link {% if not user.is_authenticated %} disabled {% endif %}" href="{% url 'list_group_url' %}">Группы</a>
+            </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'list_language_url' %}">Языки</a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link {% if not user.is_authenticated %} disabled {% endif %}" href="{% url 'list_language_url' %}">Языки</a>
+            </li>
         </ul>
+        {% if user.is_authenticated %}
         <form class="form-inline my-2 my-lg-0" action="{% url 'list_word_url' %}" method="get">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="word" value="{{ search_word|default_if_none:'' }}">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск по словарю</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="word" value="{{ search_word|default_if_none:'' }}">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск по словарю</button>
         </form>
+        {% endif %}
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <div class="nav-link disabled">
-                        Привет {{ user.username }}
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_logout' %}">
-                        Выход
-                    </a>
-                </li>
+            <li class="nav-item">
+                <div class="nav-link disabled">
+                    Привет {{ user.username }}
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_logout' %}">
+                    Выход
+                </a>
+            </li>
             {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_login' %}">
-                        Вход
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_signup' %}">
-                        Регистрация
-                    </a>
-                </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_login' %}">
+                    Вход
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_signup' %}">
+                    Регистрация
+                </a>
+            </li>
             {% endif %}
 
         </ul>
-      </div>
-    </nav>
-    <div class="content my-2">
-        {% block content %}
-            default content
-        {% endblock %}
     </div>
+</nav>
+<div class="content my-2">
+    {% block content %}
+    default content
+    {% endblock %}
+</div>
 
 </body>
 </html>
