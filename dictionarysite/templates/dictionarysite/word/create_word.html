@@ -4,10 +4,31 @@
     create word
 {% endblock %}
 
+{% load crispy_forms_tags %}
+
+
 {% block content %}
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Save">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                {{ form.word|as_crispy_field }}
+            </div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+            <div class="col-6">
+                {{ form.translation|as_crispy_field }}
+            </div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+            <div class="col-6">
+                {{ form.note|as_crispy_field }}
+            </div>
+            <div class="col-3"></div>
+            <div class="col-4"></div>
+            <button type="submit" class="btn btn-success col-4" id="save_button">Save</button>
+            <div class="col-4"></div>
+        </div>
     </form>
 {% endblock %}

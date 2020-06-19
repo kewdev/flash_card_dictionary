@@ -12,7 +12,7 @@ urlpatterns = [
     path('instructions/', views.Instructions.as_view(), name=urlconsts.INSTRUCTIONS_PAGE_URL),
 
     path('word/', ListWord.as_view(), name=urlconsts.LIST_WORD_URL),
-    path('word/list/<str:language>', ListWord.as_view(), name=urlconsts.LIST_WORD_ON_LANGUAGE_URL),
+    path('word/list/<str:language>/', ListWord.as_view(), name=urlconsts.LIST_WORD_ON_LANGUAGE_URL),
     path('word/detail/<slug:slug>/', DetailWord.as_view(), name=urlconsts.DETAIL_WORD_URL),
     path('word/create/', CreateWord.as_view(), name=urlconsts.CREATE_WORD_URL),
     path('word/update/<slug:slug>/', UpdateWord.as_view(), name=urlconsts.UPDATE_WORD_URL),

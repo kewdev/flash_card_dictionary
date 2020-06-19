@@ -5,5 +5,7 @@
 {% endblock %}
 
 {% block content %}
+    {% include 'dictionarysite/includes/addition_navbar.html' with create_link='create_word_url' %}
+
     {{ word }}
 {% endblock %}

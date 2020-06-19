@@ -66,10 +66,10 @@ class Word(models.Model):
     # TODO: прописать help_text, default
     user = models.ForeignKey(User, verbose_name="Пользователь",
                              on_delete=models.CASCADE, null=True, blank=True, db_index=True)
-    word = models.TextField("Слово", db_index=True)
-    translation = models.TextField("Перевод", null=True, blank=True)
+    word = models.CharField("Слово", max_length=250, db_index=True)
+    translation = models.CharField("Перевод", max_length=250, null=True, blank=True)
     language = models.ForeignKey(Language, verbose_name="Язык", on_delete=models.CASCADE, null=True, blank=True)
-    groups = models.ManyToManyField(Group, verbose_name="Группы", null=True, blank=True)
+    groups = models.ManyToManyField(Group, default=None, verbose_name="Группы", null=True, blank=True)
     # TODO использовать  Field.choices
     priority = models.PositiveSmallIntegerField("Приоритет изучения", null=True, blank=True, default=10)
     note = models.TextField("Заметки", null=True, blank=True)
