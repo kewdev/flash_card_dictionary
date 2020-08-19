@@ -24,7 +24,7 @@
                     <h4 class="text-aline-center"> Заметки </h4>
                     {{ word.note }}
                 </div>
-                <div class="col-12 mt-5"> Язык: {{ word.language }} </div>
+                <div class="col-12 mt-5"> Язык: <a href="{{ word.language.get_absolute_url }}">{{ word.language }}</a></div>
                 <div class="mt-5 row col-12 justify-content-center">
                     {% for group in word.groups.all %}
                         <div class="col-xs-12 col-sm-4 text-center">
