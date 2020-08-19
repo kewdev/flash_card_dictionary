@@ -1,15 +1,24 @@
 {% extends "dictionarysite/base.html" %}
 
 {% block title %}
-    словарь
+    Словарь
 {% endblock %}
 
 {% block content %}
-    <ul class="">
-        <li class="">Если у вас нет аккаунта <a href="{% url 'account_signup' %}">Зарегистрируйтесь</a> или <a href="/accounts/vk/login/?process=login/">Войдите с помощью ВК</a></li>
-        <li class="">Если у вас есть аккаунт <a href="{% url 'account_login' %}">Войдите</a></li>
-        <li class="">Выберете языки, на которых будете вести словарик</li>
-        <li class="">Добавляйте слова в словарик</li>
-        <li class="">Учитесь!</li>
-    </ul>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row text-container">
+            <div class="col-12 justify-content-center">
+                <h4 class="text-center">
+                    <a href="{% url 'account_login' %}">Войдите</a>
+                    <a href="/accounts/vk/login/?process=login/"><img class="width-32px" src="/static/img/vk.png" alt=""></a>
+                </h4>
+                <h4 class="text-center">или</h4>
+                <h4 class="text-center"><a href="{% url 'account_signup' %}">Зарегистрируйтесь</a></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
