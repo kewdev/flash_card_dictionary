@@ -15,8 +15,8 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">-->
-<!--    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -33,22 +33,36 @@
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
 
         <ul class="navbar-nav mr-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'list_word_url' %}">Слова</a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link {% if not user.is_authenticated %} disabled {% endif %}" href="{% url 'list_word_url' %}">Слова</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'list_group_url' %}">Группы</a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link {% if not user.is_authenticated %} disabled {% endif %}" href="{% url 'list_group_url' %}">Группы</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'list_language_url' %}">Языки</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Слова</a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link {% if not user.is_authenticated %} disabled {% endif %}" href="{% url 'list_language_url' %}">Языки</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Группы</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Языки</a>
+                </li>
+            {% endif %}
+
         </ul>
         {% if user.is_authenticated %}
         <form class="form-inline my-2 my-lg-0" action="{% url 'list_word_url' %}" method="get">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="word" value="{{ search_word|default_if_none:'' }}">
+            <input class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search" name="word" value="{{ search_word|default_if_none:'' }}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск по словарю</button>
         </form>
         {% endif %}
@@ -56,7 +70,7 @@
             {% if user.is_authenticated %}
             <li class="nav-item">
                 <div class="nav-link disabled" id="user_name">
-                    Привет {{ user.username }}
+                    {{ user.username }}
                 </div>
             </li>
             <li class="nav-item">
@@ -76,10 +90,10 @@
                 </a>
             </li>
             {% endif %}
-
         </ul>
     </div>
 </nav>
+
 <div class="content my-2">
     {% block content %}
     default content
