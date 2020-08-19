@@ -6,3 +6,5 @@ db.sqlite3
 /functional_tests/geckodriver.log
 /geckodriver.log
 *.pyc
+prod_settings.py
+local_settings.py
