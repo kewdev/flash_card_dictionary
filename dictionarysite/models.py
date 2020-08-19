@@ -68,7 +68,7 @@ class Word(models.Model):
                              on_delete=models.CASCADE, null=True, blank=True, db_index=True)
     word = models.CharField("Слово", max_length=250, db_index=True)
     translation = models.CharField("Перевод", max_length=250, null=True, blank=True)
-    language = models.ForeignKey(Language, verbose_name="Язык", on_delete=models.CASCADE, null=True, blank=True)
+    language = models.ForeignKey(Language, verbose_name="Язык", on_delete=models.CASCADE)
     groups = models.ManyToManyField(Group, default=None, verbose_name="Группы", null=True, blank=True)
     # TODO использовать  Field.choices
     priority = models.PositiveSmallIntegerField("Приоритет изучения", null=True, blank=True, default=10)

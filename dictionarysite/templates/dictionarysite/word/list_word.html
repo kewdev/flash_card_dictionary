@@ -1,11 +1,15 @@
 {% extends "dictionarysite/base.html" %}
 
 {% block title %}
-    main page
+    Словарь
 {% endblock %}
 
 {% block content %}
-    {% include 'dictionarysite/includes/addition_navbar.html' with create_link='create_word_url' %}
+    <div class="col-12 text-center">
+        <a href="{% url 'create_word_url' %}" class="center btn-center btn btn-warning" id="add_new_word">
+            <h5>Создать слово</h5>
+        </a>
+    </div>
 
     {% include 'dictionarysite/includes/card_list.html' with card_template_path='dictionarysite/includes/card_word.html' object_list=word_list detail_link='detail_word_url' delete_link='delete_word_url' update_link='update_word_url' %}
 

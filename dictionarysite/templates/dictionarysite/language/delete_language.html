@@ -1,9 +1,20 @@
 {% extends "dictionarysite/base.html" %}
 
 {% block title %}
-    delete language
+    Удалить {{ language.name }}?
 {% endblock %}
 
+
 {% block content %}
-    {{ language }}
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="h3 text-center col-12">Удалить язык "{{ language.name }}" и все связанные с ним слова?</div>
+            <div class="mt-3 row col-12">
+                <div class="col-4"></div>
+                <button type="submit" class="btn btn-success col-4" id="delete_button">Удалить</button>
+                <div class="col-4"></div>
+            </div>
+        </div>
+    </form>
 {% endblock %}

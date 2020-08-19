@@ -1,7 +1,7 @@
 {% extends "dictionarysite/base.html" %}
 
 {% block title %}
-    create word
+    Создание слова
 {% endblock %}
 
 {% load crispy_forms_tags %}
@@ -11,24 +11,20 @@
     <form method="post">
         {% csrf_token %}
         <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6">
-                {{ form.word|as_crispy_field }}
+            <div class="col-xs-0 col-sm-2 col-lg-3"></div>
+            <div class="col-xs-12 col-sm-8 col-lg-6">
+                <div class="row">
+                    <div class="col-12"> {{ form.language|as_crispy_field }} </div>
+                    <div class="col-12"> {{ form.word|as_crispy_field }} </div>
+                    <div class="col-12"> {{ form.translation|as_crispy_field }} </div>
+                    <div class="col-12"> {{ form.note|as_crispy_field }} </div>
+                    <div class="col-12"> {{ form.groups|as_crispy_field }} </div>
+                    <div class="col-2"></div>
+                    <button type="submit" class="col-8 btn btn-success" id="save_button">Сохранить</button>
+                    <div class="col-2"></div>
+                </div>
             </div>
-            <div class="col-3"></div>
-            <div class="col-3"></div>
-            <div class="col-6">
-                {{ form.translation|as_crispy_field }}
-            </div>
-            <div class="col-3"></div>
-            <div class="col-3"></div>
-            <div class="col-6">
-                {{ form.note|as_crispy_field }}
-            </div>
-            <div class="col-3"></div>
-            <div class="col-4"></div>
-            <button type="submit" class="btn btn-success col-4" id="save_button">Save</button>
-            <div class="col-4"></div>
+            <div class="col-xs-0 col-sm-2 col-lg-3"></div>
         </div>
     </form>
 {% endblock %}

@@ -1,5 +1,8 @@
-from django.views.generic import ListView, CreateView, UpdateView, DetailView
-from dictionarysite.models import Group
+from django.urls import reverse
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+
+from dictionarysite import urlconsts
+from dictionarysite.models import Group, Word
 from dictionarysite.forms import GroupForm
 
 
@@ -16,6 +19,11 @@ class DetailGroup(DetailView):
     model = Group
     template_name = 'dictionarysite/group/detail_group.html'
     context_object_name = 'group'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['word_list'] = Word.objects.filter(groups__slug=self.get_object().slug)
+        return context
 
 
 class CreateGroup(CreateView):
@@ -37,8 +45,11 @@ class UpdateGroup(UpdateView):
     form_class = GroupForm
 
 
-class DeleteGroup(UpdateView):
+class DeleteGroup(DeleteView):
     model = Group
     context_object_name = 'group'
     template_name = 'dictionarysite/group/delete_group.html'
     form_class = GroupForm
+
+    def get_success_url(self):
+        return reverse(urlconsts.LIST_GROUP_URL)

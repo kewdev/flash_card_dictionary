@@ -1,5 +1,8 @@
-from django.views.generic import ListView, CreateView, UpdateView, DetailView
-from dictionarysite.models import Language
+from django.urls import reverse
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+
+from dictionarysite import urlconsts
+from dictionarysite.models import Language, Word
 from dictionarysite.forms import LanguageForm
 
 
@@ -16,6 +19,11 @@ class DetailLanguage(DetailView):
     model = Language
     template_name = 'dictionarysite/language/detail_language.html'
     context_object_name = 'language'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['word_list'] = Word.objects.filter(language__slug=self.get_object().slug)
+        return context
 
 
 class CreateLanguage(CreateView):
@@ -37,8 +45,11 @@ class UpdateLanguage(UpdateView):
     form_class = LanguageForm
 
 
-class DeleteLanguage(UpdateView):
+class DeleteLanguage(DeleteView):
     model = Language
     context_object_name = 'language'
     template_name = 'dictionarysite/language/delete_language.html'
     form_class = LanguageForm
+
+    def get_success_url(self):
+        return reverse(urlconsts.LIST_LANGUAGE_URL)

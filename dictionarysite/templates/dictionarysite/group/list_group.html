@@ -1,12 +1,16 @@
 {% extends "dictionarysite/base.html" %}
 
 {% block title %}
-    mane page
+    Группы
 {% endblock %}
 
 {% block content %}
 
-    {% include 'dictionarysite/includes/addition_navbar.html' with create_link='create_group_url' %}
+    <div class="col-12 text-center">
+        <a href="{% url 'create_group_url' %}" class="center btn-center btn btn-warning" id="add_new_word">
+            <h5>Создать группу</h5>
+        </a>
+    </div>
 
     {% include 'dictionarysite/includes/card_list.html' with card_template_path='dictionarysite/includes/card_group.html' object_list=group_list detail_link='detail_group_url' delete_link='delete_group_url' update_link='update_group_url' %}
 

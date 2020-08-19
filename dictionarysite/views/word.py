@@ -1,8 +1,10 @@
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.encoding import uri_to_iri
-from django.views.generic import ListView, CreateView, UpdateView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+
 from dictionarysite import urlconsts
-from dictionarysite.models import Word
+from dictionarysite.models import Word, Language, Group
 from dictionarysite.forms import WordForm
 
 
@@ -34,33 +36,51 @@ class CreateWord(CreateView):
     template_name = 'dictionarysite/word/create_word.html'
     form_class = WordForm
 
-    def form_valid(self, form):
-        word = form.save(commit=False)
-        word.rank = 5
-        word.user = self.request.user
-        word.save()
-        form.save()
-        return super().form_valid(form)
+    def get(self, request, *args, **kwargs):
+        count_of_languages = Language.objects.filter(user=self.request.user).count()
+        if count_of_languages == 0:
+            return redirect(urlconsts.CREATE_LANGUAGE_URL)
+        return super().get(request, *args, **kwargs)
+
+    def get_initial(self):
+        language_slug = self.request.GET.get('language_slug', None)
+        group_slug = self.request.GET.get('group_slug', None)
+        initial_values = super().get_initial()
+        if language_slug is not None:
+            initial_values['language'] = Language.objects.get(slug=language_slug)
+            return initial_values
+        if group_slug is not None:
+            initial_values['groups'] = Group.objects.get(slug=group_slug)
+            return initial_values
+        return initial_values
+
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs['user'] = self.request.user
+
+        return form_kwargs
 
 
 class UpdateWord(UpdateView):
     model = Word
-    form_class = WordForm
     template_name = 'dictionarysite/word/update_word.html'
+    form_class = WordForm
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["search_action_url"] = urlconsts.INDEX_PAGE_URL
-        context["create_action_url"] = urlconsts.CREATE_WORD_URL
-        context["word"] = Word.objects.get(slug=self.kwargs.get('slug'))
-        return context
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs['user'] = self.request.user
+        return form_kwargs
 
     def get_success_url(self):
-        return reverse(urlconsts.UPDATE_WORD_URL, kwargs={'slug': Word.objects.get(word=self.request.POST["word"]).slug})
+        return reverse(urlconsts.UPDATE_WORD_URL,
+                       kwargs={'slug': Word.objects.get(word=self.request.POST["word"]).slug})
 
 
-class DeleteWord(UpdateView):
+class DeleteWord(DeleteView):
     model = Word
     context_object_name = 'word'
     template_name = 'dictionarysite/word/delete_word.html'
     form_class = WordForm
+
+    def get_success_url(self):
+        return reverse(urlconsts.LIST_WORD_URL)

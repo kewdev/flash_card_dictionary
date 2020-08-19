@@ -5,5 +5,13 @@
 {% endblock %}
 
 {% block content %}
-    {{ language }}
+    <div class="col-12 text-center">
+        <a href="{% url 'create_word_url' %}?language_slug={{ language.slug }}" class="center btn-center btn btn-warning" id="add_new_word">
+            <h5>Создать слово</h5>
+        </a>
+    </div>
+
+    <div class="h1 text-center mt-3">Язык {{ language.name }}</div>
+
+    {% include 'dictionarysite/includes/card_list.html' with card_template_path='dictionarysite/includes/card_word.html' object_list=word_list detail_link='detail_word_url' delete_link='delete_word_url' update_link='update_word_url' %}
 {% endblock %}
